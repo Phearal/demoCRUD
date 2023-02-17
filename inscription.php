@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +13,14 @@
 <body>
     <main>
         <h1>Inscription</h1>
+        <!-- Si Email existe déjà -->
+        <?php if(isset($_SESSION['erreurEmailExistant'])): ?>
+            <p class="error"><?= $_SESSION['erreurEmailExistant']; ?></p>
+        <?php
+            session_destroy();
+            endif
+        ?>
+
         <form action="register.php" method="post">
             <div class="mb-3">
                 <label for="nom" class="form-label">Nom</label>
