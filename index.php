@@ -2,18 +2,6 @@
     session_start();
     include_once './config/config.php'
 ?>
-<!--
-<?php if(isset($_SESSION["id_utilisateur"])): ?>
-    <div>
-        Bonjour <?= $_SESSION['prenom']; ?>
-        <br><a href="./deconnexion.php">Déconnexion</a>
-    </div>
-<?php else: ?>
-    <div>
-        <a href="./connexion.php">Connexion</a>
-    </div>
-<?php endif ?>
--->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,22 +14,14 @@
     <link rel="stylesheet" href="<?= CSS ?>accueil.css"> -->
     <script defer src="<?= BOOTSTRAP_JS ?>"></script>
     <!-- <script defer src="<?= JS ?>main.js"></script> -->
-    <title><?= TITLE ?> | Accueil</title>
+    <title><?= TITLE ?>Accueil</title>
 </head>
 <body>
     <?php require_once TEMPLATE_PARTS . '_header.php';?>
 
-    <h1>Gestion des évènements</h1>
-    <nav>
-        <ul>
-            <li><a href="./index.php">Accueil</a></li>
-            <li><a href="./inscription.php">Inscription</a></li>
-        </ul>
-    </nav>
-    <hr>
     <main>
         <div class="container">
-            <h2>Liste des évènements</h2>
+            <h1 class="mb-5 mt-5">Liste des évènements</h1>
             <?php
                 $cnx = new PDO("mysql:host=localhost;dbname=gestion_evenements;charset=utf8;port=3306","toto_evenements","toto");
                 // var_dump($cnx);
@@ -52,7 +32,7 @@
             ?>
                 <div class="row mb-5">
                     <div class="col">
-                        <img src="<?= $evenement['img_cover'] ?>" alt="">
+                        <img class="rounded" src="<?= $evenement['img_cover'] ?>" alt="">
                     </div>
                     <div class="col d-flex flex-column justify-content-between">
                         <div class="row">
