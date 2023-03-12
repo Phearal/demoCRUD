@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="evenements.php">Évènements</a>
+            <a class="nav-link active" aria-current="page" href="index.php">Évènements</a>
             </li>
             <li class="nav-item">
             <a class="nav-link" href="contact.php">Nous contacter</a>
@@ -22,8 +22,8 @@
                 <a class="nav-link" href="./deconnexion.php">Déconnexion</a>
             <?php else: ?>
                 <a class="nav-link" href="./connexion.php">Connexion</a>
+                <a class="nav-link" href="inscription.php">Inscription</a>
             <?php endif ?>
-            <a class="nav-link" href="inscription.php">Inscription</a>
         </span>
         </div>
     </div>

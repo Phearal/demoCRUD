@@ -44,3 +44,5 @@ $stmt->bindParam(":email", $email);
 $stmt->bindParam(":mdp", $mdp);
 $stmt->bindParam(":role", $role);
 $stmt->execute();
+
+header('location:connexion.php');

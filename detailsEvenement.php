@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include_once './config/config.php'
+    require_once './config/config.php'
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +18,6 @@
     <?php
         // On récupère le paramètre d'URL id
         $id = $_GET["id"];
-        var_dump($id);
         // Connexion à la BDD
         try {
             $cnx = new PDO("mysql:host=localhost;dbname=gestion_evenements;charset=utf8;port=3306","toto_evenements","toto");
@@ -38,7 +37,7 @@
         <div class="container">
             <?php if (!empty($evenement)) :
             ?>
-                <div class="row mb-5">
+                <div class="row mb-5 mt-5">
                     <div class="col">
                         <img class="rounded" src="<?= $evenement['img_cover'] ?>" alt="">
                     </div>
