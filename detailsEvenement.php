@@ -10,6 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= BOOTSTRAP_CSS ?>">
+    <link rel="stylesheet" href="<?= BOOTSTRAP_ICONS ?>">
     <script defer src="<?= BOOTSTRAP_JS ?>"></script>
     <title><?= TITLE ?>Évènement n°<?= $_GET["id"] ?></title>
 </head>
