@@ -1,7 +1,5 @@
-console.log('test');
-const burgerIcon = document.querySelector('#burgerIcon');
-const mobileMenu = document.querySelector('#mobileMenu');
-burgerIcon.addEventListener('click', function(){
-    burgerIcon.classList.toggle('open');
-    mobileMenu.classList.toggle('open2');
-});
+let deleteEventBtn = document.querySelector('#deleteEventBtn');
+// let eventBtns = document.querySelectorAll('.trash');
+let eventBtns = document.querySelectorAll('.trash').addEventListener('click', event => {
+    console.log(eventBtns.dataset.id);
+  })

@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="<?= BOOTSTRAP_CSS ?>">
     <link rel="stylesheet" href="<?= BOOTSTRAP_ICONS ?>">
     <script defer src="<?= BOOTSTRAP_JS ?>"></script>
-        <!-- <link rel="stylesheet" href="./css/style.css"> -->
     <title><?= TITLE ?>Connexion</title>
 </head>
 <body>
