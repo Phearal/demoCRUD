@@ -23,14 +23,13 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
 
 <body>
     <?php require_once TEMPLATE_PARTS . '_header.php'; ?>
-    <h1>Page admin</h1>
     <div class="container">
+    <h1 class="mb-5 mt-5">Page admin</h1>
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Évènements</button>
                 <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Lieux</button>
                 <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Utilisateurs</button>
-                <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false" disabled>Disabled</button>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -50,9 +49,9 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
                     <tbody>
                         <?php
                         $cnx = new PDO("mysql:host=localhost;dbname=gestion_evenements;charset=utf8;port=3306", "toto_evenements", "toto");
-                        $stmt = $cnx->prepare("SELECT * FROM `evenements_utilisateurs_lieux` ORDER BY `evenements_utilisateurs_lieux`.`id_evenement` DESC");
-                        $stmt->execute();
-                        $evenements = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        $stmtUser = $cnx->prepare("SELECT * FROM `evenements_utilisateurs_lieux` ORDER BY `evenements_utilisateurs_lieux`.`id_evenement` DESC");
+                        $stmtUser->execute();
+                        $evenements = $stmtUser->fetchAll(PDO::FETCH_ASSOC);
                         foreach ($evenements as $evenement) :
                         ?>
                             <tr>
@@ -62,14 +61,47 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
                                 <td><?= $evenement['date'] ?></td>
                                 <td><?= $evenement['nb_places'] ?></td>
                                 <td>
-                                    <i type="button" class="bi bi-trash-fill trash" data-id="<?= $evenement["id_evenement"] ?>" data-bs-toggle="modal" data-bs-target="#exampleModal" style="color: #000;"></i>
+                                    <i type="button" class="bi bi-trash-fill trashEvent" data-id="<?= $evenement["id_evenement"] ?>" data-bs-toggle="modal" data-bs-target="#exampleModal" style="color: #000;"></i>
                                 </td>
                             </tr>
                         <?php endforeach ?>
                     </tbody>
                 </table>
             </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">...</div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                <a href="./creerLieu.php"><button type="button" class="btn btn-primary mt-5 mb-5">Ajouter un lieu</button></a>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Adresse</th>
+                            <th scope="col">Ville</th>
+                            <th scope="col">Code postal</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $stmtLieu = $cnx->prepare("SELECT * FROM `lieu` ORDER BY `id_lieu` DESC");
+                        $stmtLieu->execute();
+                        $lieux = $stmtLieu->fetchAll(PDO::FETCH_ASSOC);
+                        foreach ($lieux as $lieu) :
+                        ?>
+                            <tr>
+                                <th scope="row"><?= $lieu["id_lieu"] ?></th>
+                                <td><?= $lieu['nom'] ?></td>
+                                <td><?= $lieu['adresse'] ?></td>
+                                <td><?= $lieu['ville'] ?></td>
+                                <td><?= $lieu['CP'] ?></td>
+                                <td>
+                                    <i type="button" class="bi bi-trash-fill trashPlace" data-id="<?= $lieu["id_lieu"] ?>" data-bs-toggle="modal" data-bs-target="#exampleModal" style="color: #000;"></i>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...</div>
             <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">...</div>
         </div>
@@ -80,15 +112,15 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Supprimer l'évènement ?</h1>
+                    <h1 class="modal-title fs-5 modalTitle" id="exampleModalLabel">Supprimer l'évènement ?</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>L'évènement sera perdu.</p>
+                    <p class="modalText">L'évènement sera perdu.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                    <a id="deleteEventBtn" href="">
+                    <a id="deleteContentBtn" href="">
                         <button type="button" class="btn btn-primary">Valider</button>
                     </a>
                 </div>
