@@ -50,6 +50,8 @@ require_once './config/config.php'
                             <a href="
                                 <?php if(!isset($_SESSION["id_utilisateur"])): ?>
                                     ./connexion.php
+                                <?php else: ?>
+                                    ./eventRegistration.php?idUser=<?= $_SESSION["id_utilisateur"] ?>&idEvent=<?= $evenement["id_evenement"] ?>
                                 <?php endif ?>
                             " class="btn btn-success" role="button"">M'inscrire</a>
                             <a href=" detailsEvenement.php?id=<?= $evenement["id_evenement"] ?>" class="btn btn-secondary" role="button"">Voir en détail</a>

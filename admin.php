@@ -24,7 +24,7 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
 <body>
     <?php require_once TEMPLATE_PARTS . '_header.php'; ?>
     <div class="container">
-    <h1 class="mb-5 mt-5">Page admin</h1>
+        <h1 class="mb-5 mt-5">Page admin</h1>
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Évènements</button>
@@ -102,7 +102,39 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
                     </tbody>
                 </table>
             </div>
-            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...</div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prénom</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Rôle</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $stmtUtilisateur = $cnx->prepare("SELECT * FROM `utilisateur` ORDER BY `id_utilisateur` DESC");
+                        $stmtUtilisateur->execute();
+                        $utilisateurs= $stmtUtilisateur->fetchAll(PDO::FETCH_ASSOC);
+                        foreach ($utilisateurs as $utilisateur) :
+                        ?>
+                            <tr>
+                                <th scope="row"><?= $utilisateur["id_utilisateur"] ?></th>
+                                <td><?= $utilisateur['nom'] ?></td>
+                                <td><?= $utilisateur['prenom'] ?></td>
+                                <td><?= $utilisateur['email'] ?></td>
+                                <td><?= $utilisateur['role'] ?></td>
+                                <td>
+                                    <i type="button" class="bi bi-trash-fill trashPlace" data-id="<?= $utilisateur["id_utilisateur"] ?>" data-bs-toggle="modal" data-bs-target="#exampleModal" style="color: #000;"></i>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
             <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">...</div>
         </div>
     </div>
@@ -112,11 +144,11 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5 modalTitle" id="exampleModalLabel">Supprimer l'évènement ?</h1>
+                    <h1 class="modal-title fs-5 modalTitle" id="exampleModalLabel"></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="modalText">L'évènement sera perdu.</p>
+                    <p class="modalText"></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
