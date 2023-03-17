@@ -2,6 +2,7 @@
 
 define('TEMPLATE_PARTS', './template/_template_parts/');
 define('IMG', './assets/img/');
+define('IMG_EVENT', './assets/img/event/');
 define('CSS', './assets/css/');
 define('JS', './assets/js/');
 define('TITLE', 'E-vents | ');

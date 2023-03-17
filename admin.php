@@ -35,7 +35,7 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
         </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-                <button type="button" class="btn btn-primary mt-5 mb-5">Ajouter un évènement</button>
+                <a href="./creerEvenement.php"><button type="button" class="btn btn-primary mt-5 mb-5">Ajouter un évènement</button></a>
                 <table class="table">
                     <thead>
                         <tr>
@@ -88,13 +88,14 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                    <a id="deleteEventBtn" href="./deleteEvent.php?id=<?= $evenement["id_evenement"] ?>">
+                    <a id="deleteEventBtn" href="">
                         <button type="button" class="btn btn-primary">Valider</button>
                     </a>
                 </div>
             </div>
         </div>
     </div>
+
 </body>
 
 </html>
