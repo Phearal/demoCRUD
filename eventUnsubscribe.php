@@ -10,7 +10,7 @@ if(isset($_SESSION["id_utilisateur"]) && isset($_GET['idEvent']) && $_SESSION["i
 }
 
 $cnx = new PDO("mysql:host=localhost;dbname=gestion_evenements;charset=utf8;port=3306", "toto_evenements", "toto");
-$stmt = $cnx->prepare("INSERT INTO utilisateur_evenement(id_utilisateur, id_evenement) VALUES (:id_utilisateur, :id_evenement)");
+$stmt = $cnx->prepare("DELETE FROM utilisateur_evenement WHERE id_evenement = :id_evenement AND id_utilisateur = :id_utilisateur");
 $stmt->bindParam(":id_utilisateur", $idUser);
 $stmt->bindParam(":id_evenement", $idEvent);
 $stmt->execute();
