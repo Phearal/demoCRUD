@@ -55,9 +55,26 @@
                         <p>Lieu : <?= $evenement['lieux'] ?></p>             
                         <p>Nombre de places : <?= $evenement['nb_places'] ?></p>
                         <p>Organisateur : <?= $evenement['organisateur'] ?></p>
-                        <div class="justify-content-between">
-                            <a href="#" class="btn btn-success" role="button"">M'inscrire</a>
-                        </div>
+                        <?php
+                                $stmtInscription = $cnx->prepare("SELECT * FROM `utilisateur_evenement` WHERE id_evenement = :id_evenement AND id_utilisateur = :id_utilisateur");
+                                $stmtInscription->bindParam(':id_evenement', $evenement["id_evenement"]);
+                                $stmtInscription->bindParam(':id_utilisateur', $_SESSION["id_utilisateur"]);
+                                $stmtInscription->execute();
+                                $inscription = $stmtInscription->fetch(PDO::FETCH_ASSOC);
+                            ?>
+                            <div class="justify-content-between">                           
+                                <?php if($inscription): ?>
+                                    <a href="./eventUnsubscribe.php?idEvent=<?= $evenement["id_evenement"] ?>" class="btn btn-danger" role="button">Me désinscrire</a>
+                                <?php else: ?>
+                                    <a href="
+                                    <?php if(!isset($_SESSION["id_utilisateur"])): ?>
+                                        ./connexion.php
+                                    <?php else: ?>
+                                        ./eventRegistration.php?idEvent=<?= $evenement["id_evenement"] ?>
+                                    <?php endif ?>
+                                    " class="btn btn-success" role="button">M'inscrire</a>
+                                <?php endif ?>
+                            </div>
                     </div>
                 </div>
             <?php else : ?>
