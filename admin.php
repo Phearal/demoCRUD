@@ -33,6 +33,7 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
+            <!-- Évènements -->
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
                 <a href="./creerEvenement.php"><button type="button" class="btn btn-primary mt-5 mb-5">Ajouter un évènement</button></a>
                 <table class="table">
@@ -61,6 +62,7 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
                                 <td><?= $evenement['date'] ?></td>
                                 <td><?= $evenement['nb_places'] ?></td>
                                 <td>
+                                    <a href="./modifierEvenement.php?id=<?= $evenement["id_evenement"] ?>"><i class="bi bi-pencil-square modifEventIcon"></i></a>
                                     <i type="button" class="bi bi-trash-fill trashEvent" data-id="<?= $evenement["id_evenement"] ?>" data-bs-toggle="modal" data-bs-target="#exampleModal" style="color: #000;"></i>
                                 </td>
                             </tr>
@@ -68,6 +70,7 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
                     </tbody>
                 </table>
             </div>
+            <!-- Lieux -->
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                 <a href="./creerLieu.php"><button type="button" class="btn btn-primary mt-5 mb-5">Ajouter un lieu</button></a>
                 <table class="table">
@@ -102,6 +105,7 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
                     </tbody>
                 </table>
             </div>
+            <!-- Utilisateurs -->
             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
                 <table class="table">
                     <thead>
