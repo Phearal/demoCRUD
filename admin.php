@@ -62,8 +62,9 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
                                 <td><?= $evenement['date'] ?></td>
                                 <td><?= $evenement['nb_places'] ?></td>
                                 <td>
+                                    <i class="bi bi-people userByEvent" data-id="<?= $evenement["id_evenement"] ?>" data-bs-toggle="modal" data-bs-target="#exampleModal2" id="userByEvent"></i>
                                     <a href="./modifierEvenement.php?id=<?= $evenement["id_evenement"] ?>"><i class="bi bi-pencil-square modifEventIcon"></i></a>
-                                    <i type="button" class="bi bi-trash-fill trashEvent" data-id="<?= $evenement["id_evenement"] ?>" data-bs-toggle="modal" data-bs-target="#exampleModal" style="color: #000;"></i>
+                                    <i type="button" class="bi bi-trash-fill trashEvent" data-id="<?= $evenement["id_evenement"] ?>" data-bs-toggle="modal" data-bs-target="#exampleModal1" style="color: #000;"></i>
                                 </td>
                             </tr>
                         <?php endforeach ?>
@@ -122,7 +123,7 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
                         <?php
                         $stmtUtilisateur = $cnx->prepare("SELECT * FROM `utilisateur` ORDER BY `id_utilisateur` DESC");
                         $stmtUtilisateur->execute();
-                        $utilisateurs= $stmtUtilisateur->fetchAll(PDO::FETCH_ASSOC);
+                        $utilisateurs = $stmtUtilisateur->fetchAll(PDO::FETCH_ASSOC);
                         foreach ($utilisateurs as $utilisateur) :
                         ?>
                             <tr>
@@ -144,21 +145,39 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
     </div>
 
     <!-- Modal delete event -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5 modalTitle" id="exampleModalLabel"></h1>
+                    <h1 class="modal-title fs-5 modalTitle1" id="exampleModalLabel"></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="modalText"></p>
+                    <p class="modalText1"></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                     <a id="deleteContentBtn" href="">
                         <button type="button" class="btn btn-primary">Valider</button>
                     </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal userByEvent -->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 modalTitle2" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body2">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                 </div>
             </div>
         </div>

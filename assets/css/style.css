@@ -52,3 +52,7 @@ img.rounded {
     }
 }
 /* BODY - BODY - BODY - BODY - BODY - BODY - BODY - BODY - BODY - BODY - BODY - BODY - BODY - BODY - BODY - BODY - BODY - BODY - BODY - BODY - BODY - BODY */
+.userByEvent:hover {
+    cursor: pointer;
+    color: var(--dark-purple);
+}
