@@ -16,9 +16,13 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
     <link rel="stylesheet" href="<?= BOOTSTRAP_CSS ?>">
     <link rel="stylesheet" href="<?= BOOTSTRAP_ICONS ?>">
     <link rel="stylesheet" href="<?= CSS ?>style.css">
+    <link rel="stylesheet" href="<?= CSS_TABLE_ORDER ?>">
     <script defer src="<?= BOOTSTRAP_JS ?>"></script>
     <script defer src="<?= JS ?>main.js"></script>
+    <script <?= JQUERY ?>></script>
+    <script defer src="<?= JQUERY_TABLE_ORDER ?>"></script>
     <title><?= TITLE ?>Admin</title>
+
 </head>
 
 <body>
@@ -36,7 +40,7 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
             <!-- Évènements -->
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
                 <a href="./creerEvenement.php"><button type="button" class="btn btn-primary mt-5 mb-5">Ajouter un évènement</button></a>
-                <table class="table">
+                <table class="table dataTable">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
