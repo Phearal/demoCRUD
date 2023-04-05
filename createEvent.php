@@ -1,6 +1,4 @@
 <?php
-var_dump($_FILES);
-var_dump($_POST);
 $formError = null;
 try {
     $cnx = new PDO("mysql:host=localhost;dbname=gestion_evenements;charset=utf8;port=3306", "toto", "toto");
@@ -47,12 +45,14 @@ if (isset($_POST["submit"])) {
     }
     $id_lieu = $lieuExistant['id_lieu'];
 
+    $filePath = "assets/img/uploads/" . $fileName;
+
     $stmtEvent = $cnx->prepare("INSERT INTO evenement(id_evenement, nom, nb_places, date, description, img_cover, id_lieu, id_organisateur) VALUES (NULL, :nom, :nb_places, :date, :description, :img_cover, :id_lieu, :id_organisateur)");
     $stmtEvent->bindParam(":nom", $nom);
     $stmtEvent->bindParam(":nb_places", $nb_places);
     $stmtEvent->bindParam(":date", $date);
     $stmtEvent->bindParam(":description", $description);
-    $stmtEvent->bindParam(":img_cover", "assets/img/uploads/" . $fileName);
+    $stmtEvent->bindParam(":img_cover", $filePath);
     $stmtEvent->bindParam(":id_lieu", $id_lieu);
     $stmtEvent->bindParam(":id_organisateur", $_SESSION['id_utilisateur']);
     $stmtEvent->execute();

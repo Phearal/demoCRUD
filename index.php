@@ -25,9 +25,9 @@ require_once './config/config.php'
             <h1 class="mb-5 mt-5">Liste des évènements</h1>
             <?php
             $cnx = new PDO("mysql:host=localhost;dbname=gestion_evenements;charset=utf8;port=3306", "toto_evenements", "toto");
-            $stmtEvents = $cnx->prepare("SELECT * FROM evenement");
-            $stmtEvents->execute();
-            $evenements = $stmtEvents->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = $cnx->prepare("SELECT * FROM evenement");
+            $stmt->execute();
+            $evenements = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach ($evenements as $evenement) :
             ?>
                 <div class="row mb-5">
@@ -45,24 +45,24 @@ require_once './config/config.php'
                         </div>
                         <p><?= $evenement['description'] ?></p>
                         <p>Nombre de places : <?= $evenement['nb_places'] ?></p>
-                        <div class="justify-content-between">
-                            <?php
-                                $stmtInscription = $cnx->prepare("SELECT * FROM `utilisateur_evenement` WHERE id_evenement = :id_evenement AND id_utilisateur = :id_utilisateur");
-                                $stmtInscription->bindParam(':id_evenement', $evenement["id_evenement"]);
-                                $stmtInscription->bindParam(':id_utilisateur', $_SESSION["id_utilisateur"]);
-                                $stmtInscription->execute();
-                                $inscription = $stmtInscription->fetch(PDO::FETCH_ASSOC);
-                            ?>
-                            <?php if($inscription): ?>
+                        <?php
+                        $stmtInscription = $cnx->prepare("SELECT * FROM `utilisateur_evenement` WHERE id_evenement = :id_evenement AND id_utilisateur = :id_utilisateur");
+                        $stmtInscription->bindParam(':id_evenement', $evenement["id_evenement"]);
+                        $stmtInscription->bindParam(':id_utilisateur', $_SESSION["id_utilisateur"]);
+                        $stmtInscription->execute();
+                        $inscription = $stmtInscription->fetch(PDO::FETCH_ASSOC);
+                        ?>
+                        <div class=" justify-content-between">
+                            <?php if ($inscription) : ?>
                                 <a href="./eventUnsubscribe.php?idEvent=<?= $evenement["id_evenement"] ?>" class="btn btn-danger" role="button">Me désinscrire</a>
-                            <?php else: ?>
+                            <?php else : ?>
                                 <a href="
-                                <?php if(!isset($_SESSION["id_utilisateur"])): ?>
-                                    ./connexion.php
-                                <?php else: ?>
-                                    ./eventRegistration.php?idEvent=<?= $evenement["id_evenement"] ?>
-                                <?php endif ?>
-                                " class="btn btn-success" role="button">M'inscrire</a>
+                                    <?php if (!isset($_SESSION["id_utilisateur"])) : ?>
+                                        ./connexion.php
+                                    <?php else : ?>
+                                        ./eventRegistration.php?idEvent=<?= $evenement["id_evenement"] ?>
+                                    <?php endif ?>
+                                    " class="btn btn-success" role="button">M'inscrire</a>
                             <?php endif ?>
                             <a href=" detailsEvenement.php?id=<?= $evenement["id_evenement"] ?>" class="btn btn-secondary" role="button"">Voir en détail</a>
                         </div>
@@ -72,4 +72,5 @@ require_once './config/config.php'
         </div>
     </main>
 </body>
+
 </html>
