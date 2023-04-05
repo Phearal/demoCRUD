@@ -4,10 +4,11 @@ require_once './config/config.php';
 if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur')) {
     header('location:connexion.php');
 }
-require_once('createEvent.php');
-$stmtLieux = $cnx->prepare("SELECT nom FROM lieu");
-$stmtLieux->execute();
-$lieux = $stmtLieux->fetchAll(PDO::FETCH_ASSOC);
+$cnx = new PDO("mysql:host=localhost;dbname=gestion_evenements;charset=utf8;port=3306", "toto", "toto");
+// var_dump($cnx);
+$stmt = $cnx->prepare("SELECT nom FROM lieu");
+$stmt->execute();
+$lieux = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,10 +36,10 @@ $lieux = $stmtLieux->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             <?php
                 $_SESSION['erreurlieuAbsent'] = NULL;
-            endif
+                endif
             ?>
 
-            <form method="post" enctype="multipart/form-data">
+            <form action="createEvent.php" method="post">
                 <div class="mb-3">
                     <label for="nom" class="form-label">Nom</label>
                     <input type="text" name="nom" class="form-control">
@@ -67,23 +68,15 @@ $lieux = $stmtLieux->fetchAll(PDO::FETCH_ASSOC);
                     <textarea name="description" class="form-control" aria-label="With textarea"></textarea>
                 </div>
                 <div class="mb-3">
-                    <?php if (!empty($formError)) : ?>
-                        <div style="color:red;">
-                            <?php foreach ($formError as $error) : ?>
-                                <div><?= $error ?></div>
-                            <?php endforeach ?>
-                        </div>
-                    <?php endif ?>
                     <label class="form-label" for="img_cover">Image</label>
                     <input name="img_cover" type="file" class="form-control" id="img_cover">
                 </div>
                 <div class="mb-3">
-                    <input type="submit" name="submit" value="Enregistrer" class="btn btn-primary">
+                    <input type="submit" value="Enregistrer" class="btn btn-primary">
                 </div>
             </form>
 
         </div>
     </main>
 </body>
-
 </html>

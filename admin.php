@@ -78,7 +78,7 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
             <!-- Lieux -->
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                 <a href="./creerLieu.php"><button type="button" class="btn btn-primary mt-5 mb-5">Ajouter un lieu</button></a>
-                <table class="table">
+                <table class="table dataTable">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
@@ -112,7 +112,7 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
             </div>
             <!-- Utilisateurs -->
             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
-                <table class="table">
+                <table class="table dataTable">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>

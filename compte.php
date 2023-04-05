@@ -55,6 +55,7 @@ if(!(isset($_SESSION["id_utilisateur"]))) {
                     </thead>
                     <tbody>
                         <?php
+                        // SELECT * FROM evenement JOIN utilisateur_evenement ON evenement.id_evenement=utilisateur_evenement.id_evenement WHERE utilisateur_evenement.id_utilisateur=12;
                         $stmtUserEvent = $cnx->prepare("SELECT * FROM utilisateur_evenement WHERE id_utilisateur = :id_utilisateur");
                         $stmtUserEvent->bindParam(":id_utilisateur", $_SESSION["id_utilisateur"]);
                         $stmtUserEvent->execute();
