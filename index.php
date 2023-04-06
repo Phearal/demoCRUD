@@ -10,10 +10,12 @@ require_once './config/config.php'
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="<?= FAVICON ?>" type="image/x-icon">
     <link rel="stylesheet" href="<?= BOOTSTRAP_CSS ?>">
     <link rel="stylesheet" href="<?= BOOTSTRAP_ICONS ?>">
     <link rel="stylesheet" href="<?= CSS ?>style.css">
     <script defer src="<?= BOOTSTRAP_JS ?>"></script>
+    <script defer src="<?= JS ?>main.js"></script>
     <title><?= TITLE ?>Accueil</title>
 </head>
 
@@ -22,7 +24,38 @@ require_once './config/config.php'
 
     <main>
         <div class="container">
+
             <h1 class="mb-5 mt-5">Liste des évènements</h1>
+
+            <div class="mb-5">
+                <div class="row">
+                    <div class="col">
+                        Mot clé :
+                        <form class="d-flex mt-2" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Recherche" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Recherche</button>
+                        </form>
+                    </div>
+                    <div class="col">
+                        Ordre alphabétique :
+                        <select class="form-select mt-2" aria-label="Default select example" id="selectDate">
+                            <option selected>-- Choisir --</option>
+                            <option value="1">A à Z</option>
+                            <option value="2">Z à A</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        Date :
+                        <select class="form-select mt-2" aria-label="Default select example">
+                            <option selected>-- Choisir --</option>
+                            <option value="1">Les + proches d'abord</option>
+                            <option value="2">Les - proches d'abord</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+
             <?php
             $cnx = new PDO("mysql:host=localhost;dbname=gestion_evenements;charset=utf8;port=3306", "toto_evenements", "toto");
             $stmt = $cnx->prepare("SELECT * FROM evenement");

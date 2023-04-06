@@ -36,9 +36,40 @@ for (let userByEventBtn of userByEventBtns) {
   });
 }
 
-$(document).ready(function() {
+let selectDate = document.querySelector('#selectDate');
+selectDate.addEventListener('change', e => {
+  let order = e.target.value;
+  switch (order) {
+    case '1':
+      console.log('Cas 1');
+      fetch('functions/eventAlphabeticalOrder.php?ao=1')
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+        })
+        .catch(error => console.error(error));
+      break;
+    case '2':
+      console.log('Cas 2');
+      fetch('functions/eventAlphabeticalOrder.php?ao=2')
+        .then(response => response.json())
+        .then(data => {
+          // JSON.parse(data);
+          console.log(data[3]);
+        })
+        .catch(error => console.error(error));
+      break;
+    default:
+      console.log('Abonbadakor');
+  }
+
+  console.log(e.target.value);
+});
+
+
+$(document).ready(function () {
   $('.dataTable').DataTable({
-    "order": [[ 0, "desc" ]], // Tri par ordre décroissant de la première colonne
+    "order": [[0, "desc"]], // Tri par ordre décroissant de la première colonne
     "paging": true // Activation de la pagination
   });
 });
