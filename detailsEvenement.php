@@ -78,6 +78,7 @@
                             </div>
                     </div>
                 </div>
+                
             <?php else : ?>
                 <p>L'évènement <?= $id ?> n'existe pas.</p>
             <?php endif ?>
