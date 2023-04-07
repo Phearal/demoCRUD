@@ -41,7 +41,7 @@ if (isset($_POST["submit"])) {
 
     if (!$lieuExistant) {
         $_SESSION['erreurlieuAbsent'] = "Ce lieu n'existe pas dans la base de données";
-        // header('location:creerEvenement.php');
+        header('location:creerEvenement.php');
     }
     $id_lieu = $lieuExistant['id_lieu'];
 

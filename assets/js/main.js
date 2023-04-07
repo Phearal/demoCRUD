@@ -36,34 +36,88 @@ for (let userByEventBtn of userByEventBtns) {
   });
 }
 
+// Génération des évènements
+let container = document.querySelector('.container');
+function generateEventHTML(evenement) {
+  let eventDiv = document.createElement('div');
+  eventDiv.classList.add('row', 'mb-5');
+
+  let div1 = document.createElement('div');
+  div1.classList.add('col');
+
+  let img = document.createElement('img');
+  img.classList.add('rounded');
+  img.setAttribute('src', evenement.img_cover);
+  img.setAttribute('alt', '');
+
+  let div2 = document.createElement('div');
+  div2.classList.add('col', 'd-flex', 'flex-column', 'justify-content-between');
+
+  let div3 = document.createElement('div');
+  div3.classList.add('row');
+
+  let div4 = document.createElement('div');
+  div4.classList.add('col');
+
+  let titre = document.createElement('h3');
+  titre.textContent = evenement.nom;
+
+  let div5 = document.createElement('div');
+  div5.classList.add('col');
+
+  let date = document.createElement('p');
+  date.textContent = evenement.date;
+
+  let description = document.createElement('p');
+  description.textContent = evenement.description;
+
+  let places = document.createElement('p');
+  places.textContent = evenement.nb_places;
+
+  // Ajout des éléments dans la structure HTML
+  div5.appendChild(date);
+  div4.appendChild(titre);
+  div3.appendChild(div4);
+  div3.appendChild(div5);
+  div3.appendChild(description);
+  div3.appendChild(places);
+  div2.appendChild(div3);
+  div1.appendChild(img);
+  eventDiv.appendChild(div1);
+  eventDiv.appendChild(div2);
+}
+
+// Requête vers fichier PHP pour obtenir mes évènements
+async function getEventData(num) {
+  try {
+    let response = await fetch('functions/eventAlphabeticalOrder.php?ao=' + num);
+    let data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Ecoute du choix fait sur le menu déroulant, le switch dépend de la valeur de e.target.value
 let selectDate = document.querySelector('#selectDate');
-selectDate.addEventListener('change', e => {
+let evenements;
+let eventData;
+selectDate.addEventListener('change', async e => {
   let order = e.target.value;
   switch (order) {
     case '1':
-      console.log('Cas 1');
-      fetch('functions/eventAlphabeticalOrder.php?ao=1')
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-        })
-        .catch(error => console.error(error));
+      evenements = JSON.parse(JSON.stringify(await getEventData(1), null, 2));
       break;
     case '2':
-      console.log('Cas 2');
-      fetch('functions/eventAlphabeticalOrder.php?ao=2')
-        .then(response => response.json())
-        .then(data => {
-          // JSON.parse(data);
-          console.log(data[3]);
-        })
-        .catch(error => console.error(error));
+      evenements = JSON.parse(JSON.stringify(await getEventData(2), null, 2));
       break;
     default:
       console.log('Abonbadakor');
   }
-
-  console.log(e.target.value);
+  for (let i = 0; i < evenements.length; i++) {
+    let evenement = evenements[i];
+    generateEventHTML(evenement);
+  }
 });
 
 
@@ -73,3 +127,4 @@ $(document).ready(function () {
     "paging": true // Activation de la pagination
   });
 });
+
