@@ -16,6 +16,7 @@ require_once './config/config.php'
     <link rel="stylesheet" href="<?= CSS ?>style.css">
     <script defer src="<?= BOOTSTRAP_JS ?>"></script>
     <script defer src="<?= JS ?>main.js"></script>
+    <script defer src="<?= JS ?>eventFilter.js"></script>
     <title><?= TITLE ?>Accueil</title>
 </head>
 
@@ -38,7 +39,7 @@ require_once './config/config.php'
                     </div>
                     <div class="col">
                         Ordre alphabétique :
-                        <select class="form-select mt-2" aria-label="Default select example" id="selectDate">
+                        <select class="form-select mt-2" aria-label="Default select example" id="selectAO">
                             <option selected>-- Choisir --</option>
                             <option value="1">A à Z</option>
                             <option value="2">Z à A</option>
@@ -46,7 +47,7 @@ require_once './config/config.php'
                     </div>
                     <div class="col">
                         Date :
-                        <select class="form-select mt-2" aria-label="Default select example">
+                        <select class="form-select mt-2" aria-label="Default select example" id="selectDate">
                             <option selected>-- Choisir --</option>
                             <option value="1">Les + proches d'abord</option>
                             <option value="2">Les - proches d'abord</option>
@@ -86,7 +87,7 @@ require_once './config/config.php'
                             $stmtInscription->execute();
                             $inscription = $stmtInscription->fetch(PDO::FETCH_ASSOC);
                             ?>
-                            <div class=" justify-content-between">
+                            <div class="justify-content-between">
                                 <?php if ($inscription) : ?>
                                     <a href="./eventUnsubscribe.php?idEvent=<?= $evenement["id_evenement"] ?>" class="btn btn-danger" role="button">Me désinscrire</a>
                                 <?php else : ?>
