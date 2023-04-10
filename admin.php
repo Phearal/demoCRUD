@@ -19,9 +19,10 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
     <link rel="stylesheet" href="<?= CSS ?>style.css">
     <link rel="stylesheet" href="<?= CSS_TABLE_ORDER ?>">
     <script defer src="<?= BOOTSTRAP_JS ?>"></script>
-    <script defer src="<?= JS ?>main.js"></script>
     <script <?= JQUERY ?>></script>
     <script defer src="<?= JQUERY_TABLE_ORDER ?>"></script>
+    <script defer src="<?= JS ?>datatable.js"></script>
+    <script defer src="<?= JS ?>main.js"></script>
     <title><?= TITLE ?>Admin</title>
 
 </head>

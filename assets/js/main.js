@@ -1,3 +1,4 @@
+
 let eventBtns = document.querySelectorAll('.trashEvent');
 let placeBtns = document.querySelectorAll('.trashPlace');
 let deleteContentBtn = document.querySelector('#deleteContentBtn');
@@ -37,7 +38,7 @@ for (let userByEventBtn of userByEventBtns) {
 }
 
 // Génération des évènements
-let container = document.querySelector('.container');
+let eventsContainer = document.querySelector('#eventsContainer');
 function generateEventHTML(evenement) {
   let eventDiv = document.createElement('div');
   eventDiv.classList.add('row', 'mb-5');
@@ -85,6 +86,7 @@ function generateEventHTML(evenement) {
   div1.appendChild(img);
   eventDiv.appendChild(div1);
   eventDiv.appendChild(div2);
+  eventsContainer.appendChild(eventDiv);
 }
 
 // Requête vers fichier PHP pour obtenir mes évènements
@@ -103,6 +105,7 @@ let selectDate = document.querySelector('#selectDate');
 let evenements;
 let eventData;
 selectDate.addEventListener('change', async e => {
+  eventsContainer.innerHTML = "";
   let order = e.target.value;
   switch (order) {
     case '1':
@@ -119,12 +122,3 @@ selectDate.addEventListener('change', async e => {
     generateEventHTML(evenement);
   }
 });
-
-
-$(document).ready(function () {
-  $('.dataTable').DataTable({
-    "order": [[0, "desc"]], // Tri par ordre décroissant de la première colonne
-    "paging": true // Activation de la pagination
-  });
-});
-

@@ -56,7 +56,7 @@ if (isset($_POST["submit"])) {
     $stmtEvent->bindParam(":id_lieu", $id_lieu);
     $stmtEvent->bindParam(":id_organisateur", $_SESSION['id_utilisateur']);
     $stmtEvent->execute();
+
+    $id_newEvent = $cnx->lastInsertId();
+    header("Location: detailsEvenement.php?id=".$id_newEvent);
 }
-
-
-// header('location:admin.php');

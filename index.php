@@ -56,52 +56,54 @@ require_once './config/config.php'
                 </div>
             </div>
 
-            <?php
-            $cnx = new PDO("mysql:host=localhost;dbname=gestion_evenements;charset=utf8;port=3306", "toto_evenements", "toto");
-            $stmt = $cnx->prepare("SELECT * FROM evenement");
-            $stmt->execute();
-            $evenements = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($evenements as $evenement) :
-            ?>
-                <div class="row mb-5">
-                    <div class="col">
-                        <img class="rounded" src="<?= $evenement['img_cover'] ?>" alt="">
-                    </div>
-                    <div class="col d-flex flex-column justify-content-between">
-                        <div class="row">
-                            <div class="col">
-                                <h3><?= $evenement['nom'] ?></h3>
+            <div id="eventsContainer">
+                <?php
+                $cnx = new PDO("mysql:host=localhost;dbname=gestion_evenements;charset=utf8;port=3306", "toto_evenements", "toto");
+                $stmt = $cnx->prepare("SELECT * FROM evenement");
+                $stmt->execute();
+                $evenements = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($evenements as $evenement) :
+                ?>
+                    <div class="row mb-5">
+                        <div class="col">
+                            <img class="rounded" src="<?= $evenement['img_cover'] ?>" alt="">
+                        </div>
+                        <div class="col d-flex flex-column justify-content-between">
+                            <div class="row">
+                                <div class="col">
+                                    <h3><?= $evenement['nom'] ?></h3>
+                                </div>
+                                <div class="col">
+                                    <p>Date : <?= $evenement['date'] ?></p>
+                                </div>
                             </div>
-                            <div class="col">
-                                <p>Date : <?= $evenement['date'] ?></p>
+                            <p><?= $evenement['description'] ?></p>
+                            <p>Nombre de places : <?= $evenement['nb_places'] ?></p>
+                            <?php
+                            $stmtInscription = $cnx->prepare("SELECT * FROM `utilisateur_evenement` WHERE id_evenement = :id_evenement AND id_utilisateur = :id_utilisateur");
+                            $stmtInscription->bindParam(':id_evenement', $evenement["id_evenement"]);
+                            $stmtInscription->bindParam(':id_utilisateur', $_SESSION["id_utilisateur"]);
+                            $stmtInscription->execute();
+                            $inscription = $stmtInscription->fetch(PDO::FETCH_ASSOC);
+                            ?>
+                            <div class=" justify-content-between">
+                                <?php if ($inscription) : ?>
+                                    <a href="./eventUnsubscribe.php?idEvent=<?= $evenement["id_evenement"] ?>" class="btn btn-danger" role="button">Me désinscrire</a>
+                                <?php else : ?>
+                                    <a href="
+                                        <?php if (!isset($_SESSION["id_utilisateur"])) : ?>
+                                            ./connexion.php
+                                        <?php else : ?>
+                                            ./eventRegistration.php?idEvent=<?= $evenement["id_evenement"] ?>
+                                        <?php endif ?>
+                                        " class="btn btn-success" role="button">M'inscrire</a>
+                                <?php endif ?>
+                                <a href=" detailsEvenement.php?id=<?= $evenement["id_evenement"] ?>" class="btn btn-secondary" role="button"">Voir en détail</a>
                             </div>
                         </div>
-                        <p><?= $evenement['description'] ?></p>
-                        <p>Nombre de places : <?= $evenement['nb_places'] ?></p>
-                        <?php
-                        $stmtInscription = $cnx->prepare("SELECT * FROM `utilisateur_evenement` WHERE id_evenement = :id_evenement AND id_utilisateur = :id_utilisateur");
-                        $stmtInscription->bindParam(':id_evenement', $evenement["id_evenement"]);
-                        $stmtInscription->bindParam(':id_utilisateur', $_SESSION["id_utilisateur"]);
-                        $stmtInscription->execute();
-                        $inscription = $stmtInscription->fetch(PDO::FETCH_ASSOC);
-                        ?>
-                        <div class=" justify-content-between">
-                            <?php if ($inscription) : ?>
-                                <a href="./eventUnsubscribe.php?idEvent=<?= $evenement["id_evenement"] ?>" class="btn btn-danger" role="button">Me désinscrire</a>
-                            <?php else : ?>
-                                <a href="
-                                    <?php if (!isset($_SESSION["id_utilisateur"])) : ?>
-                                        ./connexion.php
-                                    <?php else : ?>
-                                        ./eventRegistration.php?idEvent=<?= $evenement["id_evenement"] ?>
-                                    <?php endif ?>
-                                    " class="btn btn-success" role="button">M'inscrire</a>
-                            <?php endif ?>
-                            <a href=" detailsEvenement.php?id=<?= $evenement["id_evenement"] ?>" class="btn btn-secondary" role="button"">Voir en détail</a>
-                        </div>
                     </div>
-                </div>
-            <?php endforeach ?>
+                <?php endforeach ?>
+            </div>
         </div>
     </main>
 </body>
