@@ -61,52 +61,66 @@ function generateEventHTML(evenement) {
   eventsContainer.appendChild(eventDiv);
 }
 
-// Initialisation des variables
-let selectDate = document.querySelector('#selectDate');
-let selectAO = document.querySelector('#selectAO');
-let evenements;
-let eventData;
 // Requête vers fichier PHP pour obtenir mes évènements, le switch permet de savoir si on requête par ordre alphabétique ou par date
 let response;
 let data;
 async function getEventData(num, filterType) {
-  eventsContainer.innerHTML = "";
-
-  if (!isNaN(num)) {
-
     switch (filterType) {
-      case 'ao':
-        selectDate.value = '-- Choisir --';
-        response = await fetch('functions/eventAlphabeticalOrder.php?ao=' + num);
-        data = await response.json();
-        break;
-      case 'date':
-        selectAO.value = '-- Choisir --';
-        response = await fetch('functions/eventDateOrder.php?date=' + num);
-        data = await response.json();
-        break;
-    }
-
-    evenements = JSON.parse(JSON.stringify(data));
-
-    for (let i = 0; i < evenements.length; i++) {
-      let evenement = evenements[i];
-      generateEventHTML(evenement);
-    }
-
-  } else {
-    document.location.reload();
-  }
+        case 'ao':
+            response = await fetch('functions/eventAlphabeticalOrder.php?ao=' + num);
+            data = await response.json();
+            return data;
+        case 'date':
+            response = await fetch('functions/eventDateOrder.php?date=' + num);
+            data = await response.json();
+            return data;  
+        }
 }
 
 // Ecoute du choix fait sur le menu déroulant Alphabetical Order (AO), le switch dépend de la valeur de e.target.value
+let selectDate = document.querySelector('#selectDate');
+let selectAO = document.querySelector('#selectAO');
+let evenements;
+let eventData;
 selectAO.addEventListener('change', async e => {
+  eventsContainer.innerHTML = "";
   let order = e.target.value;
-  await getEventData(order, "ao");
+  switch (order) {
+    case '1':
+      selectDate.value = '-- Choisir --';
+      evenements = JSON.parse(JSON.stringify(await getEventData(order, "ao"), null, 2));
+      break;
+    case '2':
+      selectDate.value = '-- Choisir --';
+      evenements = JSON.parse(JSON.stringify(await getEventData(order, "ao"), null, 2));
+      break;
+    default:
+      document.location.reload();
+  }
+  for (let i = 0; i < evenements.length; i++) {
+    let evenement = evenements[i];
+    generateEventHTML(evenement);
+  }
 });
 
 // Ecoute du choix fait sur le menu déroulant Date, le switch dépend de la valeur de e.target.value
 selectDate.addEventListener('change', async e => {
+  eventsContainer.innerHTML = "";
   let order = e.target.value;
-  await getEventData(order, "date");
+  switch (order) {
+    case '1':
+      selectAO.value = '-- Choisir --';
+      evenements = JSON.parse(JSON.stringify(await getEventData(1, "date"), null, 2));
+      break;
+    case '2':
+      selectAO.value = '-- Choisir --';
+      evenements = JSON.parse(JSON.stringify(await getEventData(2, "date"), null, 2));
+      break;
+    default:
+      document.location.reload();
+  }
+  for (let i = 0; i < evenements.length; i++) {
+    let evenement = evenements[i];
+    generateEventHTML(evenement);
+  }
 });
