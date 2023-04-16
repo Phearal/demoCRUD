@@ -1,8 +1,18 @@
-// Génération des évènements
+// Initialisation des variables
+let selectDate = document.querySelector('#selectDate');
+let selectAO = document.querySelector('#selectAO');
+let evenements;
+let eventData;
+
+const searchbtn = document.querySelector('#searchBtn');
+const searchBar = document.querySelector('#searchBar');
+
 let eventsContainer = document.querySelector('#eventsContainer');
+
+// Génération des évènements
 function generateEventHTML(evenement) {
   let eventDiv = document.createElement('div');
-  eventDiv.classList.add('row', 'mb-5');
+  eventDiv.classList.add('row', 'mb-5', 'event');
 
   let div1 = document.createElement('div');
   div1.classList.add('col');
@@ -61,11 +71,6 @@ function generateEventHTML(evenement) {
   eventsContainer.appendChild(eventDiv);
 }
 
-// Initialisation des variables
-let selectDate = document.querySelector('#selectDate');
-let selectAO = document.querySelector('#selectAO');
-let evenements;
-let eventData;
 // Requête vers fichier PHP pour obtenir mes évènements, le switch permet de savoir si on requête par ordre alphabétique ou par date
 let response;
 let data;
@@ -94,6 +99,8 @@ async function getEventData(num, filterType) {
       generateEventHTML(evenement);
     }
 
+    keyWordFilter(new MouseEvent('click'));
+    
   } else {
     document.location.reload();
   }
@@ -110,3 +117,18 @@ selectDate.addEventListener('change', async e => {
   let order = e.target.value;
   await getEventData(order, "date");
 });
+
+searchbtn.addEventListener('click', keyWordFilter);
+function keyWordFilter(e){
+  e.preventDefault();
+  let term = searchBar.value;
+  let allEvents = document.querySelectorAll('.event');
+  let eventTitles = document.querySelectorAll('.event h3');
+  for (let i = 0 ; i < eventTitles.length ; i++){
+    if (eventTitles[i].innerText.includes(term)) {
+      allEvents[i].style.display = "flex";
+    } else {
+      allEvents[i].style.display = "none";
+    }
+  }
+}

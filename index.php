@@ -33,8 +33,8 @@ require_once './config/config.php'
                     <div class="col">
                         Mot clé :
                         <form class="d-flex mt-2" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Recherche" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Recherche</button>
+                            <input class="form-control me-2" type="search" id="searchBar" placeholder="Recherche" aria-label="Search">
+                            <button class="btn btn-outline-success" id="searchBtn" type="submit">Recherche</button>
                         </form>
                     </div>
                     <div class="col">
@@ -65,7 +65,7 @@ require_once './config/config.php'
                 $evenements = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($evenements as $evenement) :
                 ?>
-                    <div class="row mb-5">
+                    <div class="row mb-5 event">
                         <div class="col">
                             <img class="rounded" src="<?= $evenement['img_cover'] ?>" alt="">
                         </div>
