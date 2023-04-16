@@ -33,4 +33,4 @@ if($thisEvent && $thisEvent['nb_places'] > 0){
 
 
 
-header('location:index.php');
+header('location:detailsEvenement.php?id=' . $idEvent);

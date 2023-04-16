@@ -30,4 +30,4 @@ $stmtDelete->execute();
 
 
 
-header('location:index.php');
+header('location:detailsEvenement.php?id=' . $idEvent);
