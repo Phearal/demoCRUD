@@ -139,6 +139,7 @@ if (!(isset($_SESSION["id_utilisateur"]) && $_SESSION['role'] == 'administrateur
                                 <td><?= $utilisateur['email'] ?></td>
                                 <td><?= $utilisateur['role'] ?></td>
                                 <td>
+                                    <a href="./modifierUtilisateur.php?id=<?= $utilisateur["id_utilisateur"] ?>"><i class="bi bi-pencil-square modifUserIcon"></i></a>
                                     <i type="button" class="bi bi-trash-fill trashPlace" data-id="<?= $utilisateur["id_utilisateur"] ?>" data-bs-toggle="modal" data-bs-target="#exampleModal" style="color: #000;"></i>
                                 </td>
                             </tr>
